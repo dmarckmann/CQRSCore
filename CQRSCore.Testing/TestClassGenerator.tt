@@ -1,0 +1,62 @@
+﻿<#@ template debug="false" hostspecific="true" language="C#" #>
+<#@ output extension=".cs" #>
+<#@ include file="T4Toolbox.tt" #>using System;
+using System.Text;
+using System.Collections.Generic;
+using System.Linq;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
+using CQRSCore;
+using CQRSCore.Testing;
+// use custom tool: TextTemplatingFileGenerator
+namespace <#= TransformationContext.DefaultNamespace #>
+{
+	[TestClass]
+	public class GIVEN_WHEN : AggregateRootTest<SUBJECT>
+	{
+		public override IEnumerable<Event> Given()
+		{
+			return new List<Event>();
+		}
+
+		public override void When()
+		{
+			Tested.Create(Guid.NewGuid(), "tester", "tester@test.nl");
+		}
+
+		[TestMethod]
+		public void a_workercreated_event()
+		{
+			Assert.AreEqual(1,UnCommittedEvents.Count());
+			var evt = UnCommittedEvents.First();
+			Assert.IsInstanceOfType(evt, typeof(WorkerCreated));
+		}
+
+		[TestMethod]
+		public void the_event_to_have_a_id()
+		{
+			var evt = UnCommittedEvents.First() as WorkerCreated;
+			Assert.AreNotEqual(Guid.Empty, evt._id);
+		}
+
+		[TestMethod]
+		public void the_event_to_have_a_name()
+		{
+			var evt = UnCommittedEvents.First() as WorkerCreated;
+			Assert.IsFalse(string.IsNullOrEmpty(evt._name));
+		}
+
+		[TestMethod]
+		public void the_event_to_have_an_email()
+		{
+			var evt = UnCommittedEvents.First() as WorkerCreated;
+			Assert.IsFalse(string.IsNullOrEmpty(evt._email));
+		}
+
+		[TestMethod]
+		public void the_version_to_be_1()
+		{
+			Assert.AreEqual(1, Tested.Version);
+		}
+
+	}
+}
