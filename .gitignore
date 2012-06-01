@@ -28,6 +28,7 @@ _ReSharper*/
 _IsolatorIntelliRunner
 packages\RavenDB.1.0.616\server\Data
 packages\RavenDB.1.0.616\server\Logs
+[Tt]est[Rr]esult*
 =======
 # Build Folders (you can keep bin if you'd like, to store dlls and pdbs)
 bin
