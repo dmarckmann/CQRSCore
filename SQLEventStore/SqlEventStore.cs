@@ -9,7 +9,7 @@ using System.IO;
 
 namespace CQRSCore
 {
-	public class SqlEventStore : IEventStore
+	public class SqlEventStore : IEventStore<Guid>
 	{
 		private string _connectionString;
     private readonly IEventPublisher _publisher;

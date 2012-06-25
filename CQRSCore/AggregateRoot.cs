@@ -5,12 +5,15 @@ using System.Text;
 
 namespace CQRSCore
 {
-	public abstract class AggregateRoot
+	public class AggregateRoot<T> 
 	{
+
+		public T Id { get; private set; }
+
+		public int Version { get; set; }
+
 		private readonly List<Event> _changes = new List<Event>();
 
-		public abstract Guid Id { get; }
-		public int Version { get; internal set; }
 
 		public IEnumerable<Event> GetUncommittedChanges()
 		{
@@ -38,5 +41,10 @@ namespace CQRSCore
 			this.Version = @event.Version;
 			if (isNew) _changes.Add(@event);
 		}
+	}
+
+  public abstract class AggregateRoot : AggregateRoot<Guid>
+	{
+		
 	}
 }

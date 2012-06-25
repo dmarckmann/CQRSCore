@@ -5,10 +5,14 @@ using System.Text;
 
 namespace CQRSCore
 {
-	public interface IEventStore
+	public interface IEventStore<TId>
 	{
-		void SaveEvents(Guid aggregateId, IEnumerable<Event> events, int expectedVersion);
-		List<Event> GetEventsForAggregate(Guid aggregateId);
-		List<Guid> GetAggregateRootIds();
+		void SaveEvents(TId aggregateId, IEnumerable<Event> events, int expectedVersion);
+		List<Event> GetEventsForAggregate(TId aggregateId);
+		List<TId> GetAggregateRootIds();
+	}
+
+  public interface IEventStore : IEventStore<Guid>
+	{
 	}
 }

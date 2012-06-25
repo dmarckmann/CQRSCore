@@ -5,9 +5,9 @@ using System.Text;
 
 namespace CQRSCore
 {
-	public interface IRepository<T> where T : AggregateRoot, new()
+	public interface IRepository<T, TId> where T : AggregateRoot, new()
 	{
 		void Save(AggregateRoot aggregate, int expectedVersion);
-		T GetById(Guid id);
+		T GetById(TId id);
 	}
 }
