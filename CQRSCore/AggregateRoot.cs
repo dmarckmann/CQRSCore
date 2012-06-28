@@ -8,7 +8,7 @@ namespace CQRSCore
 	public class AggregateRoot<T> 
 	{
 
-		public T Id { get; private set; }
+		public virtual T Id { get; private set; }
 
 		public int Version { get; set; }
 
